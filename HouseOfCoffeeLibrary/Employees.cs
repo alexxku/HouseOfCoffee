@@ -27,25 +27,33 @@ namespace HouseOfCoffeeLibrary
             foreach (Employees employees in (Employees[]) Enum.GetValues(typeof(Employees)))
             {
                 Restart:
-                Console.Write($"{Names}: ");
-                z = Convert.ToInt32(Console.ReadLine());
-                this.totalhours[count] += z;
-
-                if (this.totalhours[count] <= 40 && z >= 0)
+                try
                 {
-                    this.Pay[count] = z * 12.50;
-                    Console.WriteLine($"Standard Pay: {this.Pay[count]:c}\n");
+                    Console.Write($"{Names}: ");
+                    z = Convert.ToInt32(Console.ReadLine());
+                    this.totalhours[count] += z;
 
+                    if (this.totalhours[count] <= 40 && z >= 0)
+                    {
+                        this.Pay[count] = z * 12.50;
+                        Console.WriteLine($"Standard Pay: {this.Pay[count]:c}\n");
+
+                    }
+                    else if (this.totalhours[count] > 40 && z >= 0)
+                    {
+                        this.Pay[count] = (z + .5) * 12.50;
+                        Console.WriteLine($"Overtime: {this.Pay[count]:c}\n");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Number");
+                        goto Restart;
+                    }
                 }
-                else if (this.totalhours[count] > 40 && z >= 0)
+                catch (Exception error)
                 {
-                    this.Pay[count] = (z + .5) * 12.50;
-                    Console.WriteLine($"Overtime: {this.Pay[count]:c}\n");
-
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Number");
+                    Console.WriteLine(error.Message.ToString());
                     goto Restart;
                 }
                 count++;

@@ -17,21 +17,45 @@ namespace HouseOfCoffee
 
         static void Main(string[] args)
         {
+            int SC;
+            int MC;
+            int LC;
+            int ES;
+            int CS;
+
             foreach(Days days in (Days[]) Enum.GetValues(typeof(Days)))
             {     
                 Console.WriteLine($"--------------------{days}--------------------");
-                Console.Write("\nSmall Coffee: ");
-                int SC = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Medium Coffee: ");
-                int MC = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Large Coffee: ");
-                int LC = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Egg Sandwich: ");
-                int ES = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Chicken Sandwich: ");
-                int CS = Convert.ToInt32(Console.ReadLine());
+                Restart:
+                try
+                {
+                    Console.Write("\nSmall Coffee: ");
+                    SC = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Medium Coffee: ");
+                    MC = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Large Coffee: ");
+                    LC = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Egg Sandwich: ");
+                    ES = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Chicken Sandwich: ");
+                    CS = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception error)
+                {
+                    Console.WriteLine(error.Message.ToString());
+                    goto Restart;
+                }
 
-                DisplayGoods(SC, MC, LC, ES, CS);
+                if ((SC >= 0) && (MC >= 0) && (LC >=0) && (ES >= 0) && (CS >= 0))
+                {
+                    DisplayGoods(SC, MC, LC, ES, CS);
+
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Number");
+                    goto Restart;
+                }
 
                 Console.WriteLine("---Worker's Punch-In Hours---\n");
                 labor.PayCalc();
